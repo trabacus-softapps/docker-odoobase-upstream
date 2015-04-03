@@ -1,0 +1,22 @@
+Usage: docker run [OPTIONS] docker/odoobase[:TAG] [COMMAND ...]
+
+Run odoo in a docker container.
+
+Positional arguments:
+  COMMAND          The command to run. (default: help)
+
+Commands:
+  help             Show this help message
+  start            Run odoo server in the background (accept additional arguments passed to odoo command)
+  login            Run in shell mode as odoo user
+
+Examples:
+
+  Run odoo V8 in the background as "xyz.odoo" on localhost:8069 and use /your/local/etc/ to load odoo.conf
+  $ docker run --name="xyz.odoo" -v /your/local/etc:/opt/odoo/etc -p 8069:8069 -d xyz/odoo:8.0 start
+
+  Run the V8 image with an interactive shell and remove the container on logout
+  $ docker run -ti --rm xyz/odoo:8.0 login
+
+  Run the v8 image and enforce a database `mydb` update, then remove the container
+  $ docker run -ti --rm  xyz/odoo:8.0 start --update=all --workers=0 --max-cron-threads=0 --no-xmlrpc --database=mydb --stop-after-init
